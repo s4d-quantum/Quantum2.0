@@ -14,6 +14,8 @@ use App\Http\Controllers\QCController;
 use App\Http\Controllers\RepairController;
 use App\Http\Controllers\GoodsOutController;
 use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TrayController;
 
 // Dashboard
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -65,6 +67,18 @@ Route::get('/inventory/get-imei-returns', [InventoryController::class, 'getImeiR
 Route::get('/inventory/get-serial-returns', [InventoryController::class, 'getSerialReturns'])->name('inventory.getSerialReturns');
 Route::get('/inventory/get-all-returns', [InventoryController::class, 'getAllReturns'])->name('inventory.getAllReturns');
 // Add other routes as needed
+
+// Tray Update
+
+Route::get('/item/{item_code}', [ItemController::class, 'showItemDetails'])->name('item.details');
+Route::post('/tray/update', [TrayController::class, 'update'])->name('tray.update');
+
+// item details
+Route::get('/inventory/item/{item_code}', [InventoryController::class, 'showItemDetails'])->name('inventory.item.details');
+
+// itemController
+Route::get('/items', [App\Http\Controllers\ItemController::class, 'index']);
+
 
 // Authentication routes (if you're using Laravel's built-in authentication)
 Auth::routes();

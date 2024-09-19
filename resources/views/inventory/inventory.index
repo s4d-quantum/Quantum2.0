@@ -267,25 +267,28 @@
             pidCell.textContent = item.id; // Assuming 'id' is the primary key
 
             const imeiCell = document.createElement('td');
-            imeiCell.textContent = item.item_imei;
+            const imeiLink = document.createElement('a');
+            imeiLink.href = `/inventory/item/${item.item_imei}`;
+            imeiLink.textContent = item.item_imei;
+         imeiCell.appendChild(imeiLink);
 
             const brandCell = document.createElement('td');
             brandCell.textContent = item.item_brand;
 
             const supplierCell = document.createElement('td');
-            supplierCell.textContent = item.supplier_name || 'N/A';
+            supplierCell.textContent = item.supplier_name; // Adjust as needed
 
             const colorCell = document.createElement('td');
-            colorCell.textContent = item.item_color || 'N/A';
+            colorCell.textContent = item.color;
 
             const gbCell = document.createElement('td');
-            gbCell.textContent = item.item_gb ? `${item.item_gb} GB` : 'N/A';
+            gbCell.textContent = item.gb;
 
             const gradeCell = document.createElement('td');
-            gradeCell.textContent = item.grade_title || 'N/A';
+            gradeCell.textContent = item.grade_title; // Adjust as needed
 
             const detailsCell = document.createElement('td');
-            detailsCell.textContent = item.item_details || 'N/A';
+            detailsCell.textContent = item.item_details;
 
             const statusCell = document.createElement('td');
             statusCell.textContent = item.status == 1 ? 'In Stock' : 'Sold';

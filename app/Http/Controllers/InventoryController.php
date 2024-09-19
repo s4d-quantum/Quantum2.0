@@ -359,4 +359,40 @@ class InventoryController extends Controller
 
         return response()->json($results);
     }
+    public function showItemDetails($item_code)
+    {
+    // Fetch item details from the primary database
+    $item = DB::table('tbl_imei')
+        ->leftJoin('tbl_tac', 'tbl_imei.item_tac', '=', 'tbl_tac.item_tac')
+        ->leftJoin('tbl_purchases', 'tbl_imei.purchase_id', '=', 'tbl_purchases.purchase_id')
+        ->where('tbl_imei.item_imei', $item_code)
+        ->select('tbl_imei.*', 'tbl_tac.*', 'tbl_purchases.*')
+        ->first();
+
+    if (!$item) {
+        abort(404, 'Item not found');
+    }
+
+    // Fetch logs from the primary database
+    $logs = DB::table('tbl_log')
+        ->where('item_code', $item_code)
+        ->orderBy('id', 'DESC')
+        ->get();
+
+    // Fetch user details from the secondary database
+    $userIds = $logs->pluck('user_id')->unique();
+
+    // Fetch users from the secondary database connection
+    $users = DB::connection('mysql_users')->table('tbl_accounts')
+        ->whereIn('user_id', $userIds)
+        ->get()
+        ->keyBy('user_id');
+
+    // Fetch trays for the dropdown
+    $trays = DB::table('tbl_trays')->get();
+
+    // Pass data to the view
+    return view('inventory.item_details', compact('item', 'logs', 'users', 'trays'));
+    }
+
 }

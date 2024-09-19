@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script>
+    var baseUrl = "{{ url('/') }}";
+</script>
+
+
 <div class="content-wrapper">
     <section class="content-header">
         <h1>Manage Products</h1>
@@ -255,56 +261,62 @@
             .catch(error => console.error('Error searching by model:', error));
     }
 
-    function populateInventoryTable(data) {
-        const tbody = document.querySelector('#inventoryTable tbody');
-        tbody.innerHTML = ''; // Clear existing data
+function populateInventoryTable(data) {
+    const tbody = document.querySelector('#inventoryTable tbody');
+    tbody.innerHTML = ''; // Clear existing data
 
-        data.forEach(item => {
-            const row = document.createElement('tr');
+    data.forEach(item => {
+        const row = document.createElement('tr');
 
-            // Create table cells
-            const pidCell = document.createElement('td');
-            pidCell.textContent = item.id; // Assuming 'id' is the primary key
+        // P.ID Cell
+        const pidCell = document.createElement('td');
+        pidCell.textContent = item.id; // Adjust if necessary
 
-            const imeiCell = document.createElement('td');
-            imeiCell.textContent = item.item_imei;
+        // IMEI Cell with Hyperlink
+        const imeiCell = document.createElement('td');
+        const imeiLink = document.createElement('a');
+        imeiLink.href = `${baseUrl}/inventory/item/${item.item_imei}`;
+        imeiLink.textContent = item.item_imei;
+        imeiCell.appendChild(imeiLink);
 
-            const brandCell = document.createElement('td');
-            brandCell.textContent = item.item_brand;
+        // Other cells remain the same...
+        const brandCell = document.createElement('td');
+        brandCell.textContent = item.item_brand;
 
-            const supplierCell = document.createElement('td');
-            supplierCell.textContent = item.supplier_name || 'N/A';
+        const supplierCell = document.createElement('td');
+        supplierCell.textContent = item.supplier_name || 'N/A';
 
-            const colorCell = document.createElement('td');
-            colorCell.textContent = item.item_color || 'N/A';
+        const colorCell = document.createElement('td');
+        colorCell.textContent = item.item_color || 'N/A';
 
-            const gbCell = document.createElement('td');
-            gbCell.textContent = item.item_gb ? `${item.item_gb} GB` : 'N/A';
+        const gbCell = document.createElement('td');
+        gbCell.textContent = item.item_gb ? `${item.item_gb} GB` : 'N/A';
 
-            const gradeCell = document.createElement('td');
-            gradeCell.textContent = item.grade_title || 'N/A';
+        const gradeCell = document.createElement('td');
+        gradeCell.textContent = item.grade_title || 'N/A';
 
-            const detailsCell = document.createElement('td');
-            detailsCell.textContent = item.item_details || 'N/A';
+        const detailsCell = document.createElement('td');
+        detailsCell.textContent = item.item_details || 'N/A';
 
-            const statusCell = document.createElement('td');
-            statusCell.textContent = item.status == 1 ? 'In Stock' : 'Sold';
+        const statusCell = document.createElement('td');
+        statusCell.textContent = item.status == 1 ? 'In Stock' : 'Sold';
 
-            // Append cells to the row
-            row.appendChild(pidCell);
-            row.appendChild(imeiCell);
-            row.appendChild(brandCell);
-            row.appendChild(supplierCell);
-            row.appendChild(colorCell);
-            row.appendChild(gbCell);
-            row.appendChild(gradeCell);
-            row.appendChild(detailsCell);
-            row.appendChild(statusCell);
+        // Append cells to the row
+        row.appendChild(pidCell);
+        row.appendChild(imeiCell);
+        row.appendChild(brandCell);
+        row.appendChild(supplierCell);
+        row.appendChild(colorCell);
+        row.appendChild(gbCell);
+        row.appendChild(gradeCell);
+        row.appendChild(detailsCell);
+        row.appendChild(statusCell);
 
-            // Append row to the table body
-            tbody.appendChild(row);
-        });
-    }
+        // Append row to the table body
+        tbody.appendChild(row);
+    });
+}
+
 
     // Optionally, fetch initial data when the page loads
     document.addEventListener('DOMContentLoaded', function() {
