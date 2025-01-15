@@ -9,9 +9,6 @@ export default defineConfig({
         hmr: {
             host: '167.99.83.205',  // Set HMR to use the server IP
         },
-        watch: {
-            ignored: ['**/vendor/**', '**/node_modules/**'], // Ignore vendor and node_modules directories
-        },
     },
     plugins: [
         laravel({

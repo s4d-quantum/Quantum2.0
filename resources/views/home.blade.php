@@ -31,7 +31,7 @@
 <script>
     function searchImei() {
         const imei = document.getElementById('imeiInput').value;
-        const url = `http://144.126.238.202/public/api/inventory?imei=${imei}`;
+        const url = `http://167.99.83.205/public/api/inventory?imei=${imei}`;
         
         fetch(url)
             .then(response => response.json())

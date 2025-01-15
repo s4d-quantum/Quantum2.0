@@ -45,7 +45,7 @@ return [
 
 	'mysql' => [
         'driver' => 'mysql',
-        'host' => env('DB_HOST', '144.126.238.202'),
+        'host' => env('DB_HOST', '167.99.83.205'),
         'port' => env('DB_PORT', '3306'),
         'database' => env('DB_DATABASE', 's4d_england_db'),
         'username' => env('DB_USERNAME', 'laravel'),
@@ -60,7 +60,7 @@ return [
 
     'mysql_users' => [
         'driver' => 'mysql',
-        'host' => env('DB_USERS_HOST', '144.126.238.202'),
+        'host' => env('DB_USERS_HOST', '167.99.83.205'),
         'port' => env('DB_USERS_PORT', '3306'),
         'database' => env('DB_USERS_DATABASE', 's4d_user_accounts'),
         'username' => env('DB_USERS_USERNAME', 'laravel'),
